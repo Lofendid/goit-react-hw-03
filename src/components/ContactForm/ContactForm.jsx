@@ -1,3 +1,5 @@
+import css from './ContactForm.module.css';
+
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { nanoid } from 'nanoid';
 import { useId } from 'react';
@@ -36,15 +38,37 @@ export default function ContactForm({ setContacts, contacts }) {
       validationSchema={contactSchema}
     >
       <Form>
-        <label htmlFor={nameFieldId}>Username</label>
-        <Field type="text" name="username" id={nameFieldId}></Field>
-        <ErrorMessage name="username" as="span" />
+        <div className={css.innerWrapper}>
+          <label className={css.label} htmlFor={nameFieldId}>
+            Username
+          </label>
+          <Field
+            className={css.formInput}
+            type="text"
+            name="username"
+            id={nameFieldId}
+          ></Field>
 
-        <label htmlFor={numberFieldId}>Phone Number</label>
-        <Field type="tel" name="userNumber" id={numberFieldId}></Field>
-        <ErrorMessage name="userNumber" as="span" />
+          <div className={css.errMsg}>
+            <ErrorMessage name="username" as="span" />
+          </div>
 
-        <button type="submit">Submit</button>
+          <label className={css.label} htmlFor={numberFieldId}>
+            Phone Number
+          </label>
+          <Field
+            className={css.formInput}
+            type="tel"
+            name="userNumber"
+            id={numberFieldId}
+          ></Field>
+
+          <div className={css.errMsg}>
+            <ErrorMessage className={css.red} name="userNumber" as="span" />
+          </div>
+
+          <button type="submit">Add Contact</button>
+        </div>
       </Form>
     </Formik>
   );

@@ -1,10 +1,11 @@
-// import css from './App.module.css'
+import css from './App.module.css';
 
 import contactsData from '../../data/contacts.json';
 
 import ContactForm from '../ContactForm/ContactForm';
 import SearchBox from '../SearchBox/SearchBox';
 import ContactList from '../ContactList/ContactList';
+
 import { useState } from 'react';
 
 function App() {
@@ -27,16 +28,25 @@ function App() {
   }
 
   return (
-    <div>
-      <h1>Phonebook</h1>
-      <ContactForm setContacts={setContacts} contacts={contacts} />
-      <SearchBox value={value} setValue={setValue} />
-      <ContactList
-        value={value}
-        setValue={setValue}
-        filteredContacts={filteredContacts}
-        handleDelButton={handleDelButton}
-      />
+    <div className={css.container}>
+      <h1 className={css.containerItem}>Phonebook</h1>
+
+      <div className={css.containerItem}>
+        <ContactForm setContacts={setContacts} contacts={contacts} />
+      </div>
+
+      <div className={css.containerItem}>
+        <SearchBox value={value} setValue={setValue} />
+      </div>
+
+      <div className={css.containerItem}>
+        <ContactList
+          value={value}
+          setValue={setValue}
+          filteredContacts={filteredContacts}
+          handleDelButton={handleDelButton}
+        />
+      </div>
     </div>
   );
 }
