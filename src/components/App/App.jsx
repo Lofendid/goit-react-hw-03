@@ -6,7 +6,7 @@ import ContactForm from '../ContactForm/ContactForm';
 import SearchBox from '../SearchBox/SearchBox';
 import ContactList from '../ContactList/ContactList';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function App() {
   const [contacts, setContacts] = useState(() => {
@@ -16,10 +16,13 @@ function App() {
   });
   const [value, setValue] = useState('');
 
+  useEffect(() => {
+    localStorage.setItem('contacts', JSON.stringify(contacts));
+  }, [contacts]);
+
   function addContactFunction(newContact) {
     setContacts(prevContacts => {
       const updatedContacts = [...prevContacts, newContact];
-      localStorage.setItem('contacts', JSON.stringify(updatedContacts));
       return updatedContacts;
     });
   }
@@ -27,7 +30,6 @@ function App() {
     const butId = id;
     const updatedContacts = contacts.filter(contact => contact.id !== butId);
     setContacts(updatedContacts);
-    localStorage.setItem('contacts', JSON.stringify(updatedContacts));
   }
 
   const filteredContacts = contacts.filter(contact =>
