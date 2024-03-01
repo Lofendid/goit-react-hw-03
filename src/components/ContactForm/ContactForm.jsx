@@ -5,7 +5,7 @@ import { nanoid } from 'nanoid';
 import { useId } from 'react';
 import * as Yup from 'yup';
 
-export default function ContactForm({ setContacts, contacts }) {
+export default function ContactForm({ addContactFunction }) {
   const contactSchema = Yup.object().shape({
     username: Yup.string()
       .min(3, 'Too Short!')
@@ -25,9 +25,8 @@ export default function ContactForm({ setContacts, contacts }) {
   function handleSubmit(values, actions) {
     const { username: name, userNumber: number } = values;
     const id = nanoid();
-    const updatedContacts = [...contacts, { name, number, id }];
-    setContacts(updatedContacts);
-    localStorage.setItem('contacts', JSON.stringify(updatedContacts));
+    const newContact = { name, number, id };
+    addContactFunction(newContact);
     actions.resetForm();
   }
 

@@ -16,23 +16,30 @@ function App() {
   });
   const [value, setValue] = useState('');
 
+  function addContactFunction(newContact) {
+    setContacts(prevContacts => {
+      const updatedContacts = [...prevContacts, newContact];
+      localStorage.setItem('contacts', JSON.stringify(updatedContacts));
+      return updatedContacts;
+    });
+  }
+  function deleteContactFunction(id) {
+    const butId = id;
+    const updatedContacts = contacts.filter(contact => contact.id !== butId);
+    setContacts(updatedContacts);
+    localStorage.setItem('contacts', JSON.stringify(updatedContacts));
+  }
+
   const filteredContacts = contacts.filter(contact =>
     contact.name.toLowerCase().trim().includes(value.toLowerCase().trim())
   );
-
-  function handleDelButton(e) {
-    const butId = e.target.id;
-    const filteredContacts = contacts.filter(contact => contact.id !== butId);
-    setContacts(filteredContacts);
-    localStorage.setItem('contacts', JSON.stringify(filteredContacts));
-  }
 
   return (
     <div className={css.container}>
       <h1 className={css.containerItem}>Phonebook</h1>
 
       <div className={css.containerItem}>
-        <ContactForm setContacts={setContacts} contacts={contacts} />
+        <ContactForm addContactFunction={addContactFunction} />
       </div>
 
       <div className={css.containerItem}>
@@ -41,10 +48,8 @@ function App() {
 
       <div className={css.containerItem}>
         <ContactList
-          value={value}
-          setValue={setValue}
           filteredContacts={filteredContacts}
-          handleDelButton={handleDelButton}
+          deleteContactFunction={deleteContactFunction}
         />
       </div>
     </div>

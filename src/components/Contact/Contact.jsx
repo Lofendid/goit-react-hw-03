@@ -2,10 +2,10 @@ import css from './Contact.module.css';
 
 export default function Contact({
   contact: { id, name, number },
-  handleDelButton,
+  deleteContactFunction,
 }) {
   return (
-    <li key={id}>
+    <li>
       <div className={css.listItem}>
         <div className={css.contactInfo}>
           <p>{name}</p>
@@ -13,7 +13,7 @@ export default function Contact({
             <p>{number}</p>
           </a>
         </div>
-        <button id={id} type="button" onClick={handleDelButton}>
+        <button id={id} type="button" onClick={() => deleteContactFunction(id)}>
           Delete
         </button>
       </div>

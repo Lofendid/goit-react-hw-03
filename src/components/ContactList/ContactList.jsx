@@ -2,7 +2,10 @@ import css from './ContactList.module.css';
 
 import Contact from '../Contact/Contact';
 
-export default function ContactList({ filteredContacts, handleDelButton }) {
+export default function ContactList({
+  filteredContacts,
+  deleteContactFunction,
+}) {
   return (
     <ul className={css.list}>
       {filteredContacts.map(contact => {
@@ -10,7 +13,7 @@ export default function ContactList({ filteredContacts, handleDelButton }) {
           <Contact
             key={contact.id}
             contact={contact}
-            handleDelButton={handleDelButton}
+            deleteContactFunction={deleteContactFunction}
           />
         );
       })}
